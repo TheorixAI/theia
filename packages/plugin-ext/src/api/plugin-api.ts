@@ -161,7 +161,11 @@ export interface CommandRegistryExt {
 }
 
 export interface TerminalServiceExt {
-    $terminalClosed(id: number): void;
+    $terminalCreated(id: string, name: string): void;
+    $terminalNameChanged(id: string, name: string): void;
+    $terminalOpened(id: string, processId: number): void;
+    $terminalClosed(id: string): void;
+    $currentTerminalChanged(id: string | undefined): void;
 }
 
 export interface ConnectionMain {
@@ -183,7 +187,7 @@ export interface TerminalServiceMain {
      * Create new Terminal with Terminal options.
      * @param options - object with parameters to create new terminal.
      */
-    $createTerminal(options: theia.TerminalOptions): PromiseLike<number>;
+    $createTerminal(id: string, options: theia.TerminalOptions): Promise<string>;
 
     /**
      * Send text to the terminal by id.
@@ -191,26 +195,26 @@ export interface TerminalServiceMain {
      * @param text - text content.
      * @param addNewLine - in case true - add new line after the text, otherwise - don't apply new line.
      */
-    $sendText(id: number, text: string, addNewLine?: boolean): void;
+    $sendText(id: string, text: string, addNewLine?: boolean): void;
 
     /**
      * Show terminal on the UI panel.
      * @param id - terminal id.
      * @param preserveFocus - set terminal focus in case true value, and don't set focus otherwise.
      */
-    $show(id: number, preserveFocus?: boolean): void;
+    $show(id: string, preserveFocus?: boolean): void;
 
     /**
      * Hide UI panel where is located terminal widget.
      * @param id - terminal id.
      */
-    $hide(id: number): void;
+    $hide(id: string): void;
 
     /**
      * Distroy terminal.
      * @param id - terminal id.
      */
-    $dispose(id: number): void;
+    $dispose(id: string): void;
 }
 
 export interface AutoFocus {
