@@ -60,7 +60,9 @@
     "docs": "theiaext docs"
   },
   "devDependencies": {
-    "@theia/ext-scripts": "^0.3.18"
+    "@theia/ext-scripts": "^0.3.18",
+    "mkdirp": "^0.5.0",
+    "tar": "^4.0.0"
   },
   "nyc": {
     "extends": "../../configs/nyc.json"
